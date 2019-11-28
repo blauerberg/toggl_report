@@ -54,9 +54,14 @@ puts ""
 
 puts "# Details"
 notes.each do |project, descriptions|
-  puts "## #{project}"
+  project_title = "## #{project}"
+  project_items = []
+  project_worktime = 0
   descriptions.each do |k, v|
-    puts "- #{k}: #{v}分"
+    project_worktime += v
+    project_items << "- #{k}: #{v}分"
   end
+  puts "#{project_title} (計#{project_worktime}分, #{((project_worktime.to_f/total_worktime.to_f) * 100).round}%)"
+  puts project_items.join("\n")
   puts ""
 end
