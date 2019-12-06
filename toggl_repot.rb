@@ -48,7 +48,7 @@ end
 puts "#{Time.now.strftime("%Y-%m-%d")} のレポートです。"
 puts "```"
 puts "# Summary"
-puts "- 本日の稼働時間: #{(total_worktime / 60.0).to_f.round}時間 (#{total_worktime}分)"
+puts "- 本日の稼働時間: #{(total_worktime / 60.0).to_f.round(1)}時間 (#{total_worktime}分)"
 puts "- "
 puts "- "
 puts ""
