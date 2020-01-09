@@ -20,6 +20,12 @@ details = report.details(
     until: (Time.at(Time.now.to_i + 86400)).strftime("%Y-%m-%d")
   }
 )
+
+# get checkin/checkout time
+check_out = DateTime.parse(details.first["end"]).to_time.utc.to_i
+check_in = DateTime.parse(details.last["start"]).to_time.utc.to_i
+
+# collect worktimes per project
 notes = {}
 total_worktime = 0
 
@@ -46,14 +52,14 @@ end
 # So, Let's create report!
 
 puts "#{Time.now.strftime("%Y-%m-%d")} のレポートです。"
-puts "```"
 puts "# Summary"
-puts "- 本日の稼働時間: #{(total_worktime / 60.0).to_f.round(1)}時間 (#{total_worktime}分)"
-puts "- "
+puts "- CheckIn/CheckOut: #{Time.at(check_in).to_datetime.strftime('%H:%M')} - #{Time.at(check_out).to_datetime.strftime('%H:%M')} (#{(check_out - check_in) / 60}分)"
+puts "- Toggle上の集計時間: #{(total_worktime / 60.0).to_f.round(1)}時間 (#{total_worktime}分)"
 puts "- "
 puts ""
 
 puts "# Details"
+puts "```"
 notes.each do |project, descriptions|
   project_title = "## #{project}"
   project_items = []
