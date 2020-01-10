@@ -53,9 +53,6 @@ end
 
 puts "#{Time.now.strftime("%Y-%m-%d")} のレポートです。"
 puts "# Summary"
-puts "- CheckIn/CheckOut: #{Time.at(check_in).to_datetime.strftime('%H:%M')} - #{Time.at(check_out).to_datetime.strftime('%H:%M')} (#{(check_out - check_in) / 60}分)"
-puts "- Toggle上の集計時間: #{(total_worktime / 60.0).to_f.round(1)}時間 (#{total_worktime}分)"
-puts "- "
 puts ""
 
 puts "# Details"
@@ -72,4 +69,11 @@ notes.each do |project, descriptions|
   puts project_items.join("\n")
   puts ""
 end
+puts "```"
+puts ""
+
+puts "# Time"
+puts "```"
+puts "- CheckIn/CheckOut: #{Time.at(check_in).to_datetime.strftime('%H:%M')} - #{Time.at(check_out).to_datetime.strftime('%H:%M')} (#{(check_out - check_in) / 60}分)"
+puts "- Toggl上の集計時間: #{(total_worktime / 60.0).to_f.round(1)}時間 (#{total_worktime}分)"
 puts "```"
