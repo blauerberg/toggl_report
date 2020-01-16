@@ -3,6 +3,7 @@
 require "time"
 require "dotenv"
 require "togglv8"
+require File.dirname(__FILE__) + "/report"
 
 Dotenv.load(".env.local", ".env")
 
@@ -25,47 +26,28 @@ details = report.details(
 check_out = DateTime.parse(details.first["end"]).to_time.utc.to_i
 check_in = DateTime.parse(details.last["start"]).to_time.utc.to_i
 
-# collect worktimes per project
-notes = {}
-total_worktime = 0
+report = Report.new(now)
+report.check_in = check_in
+report.check_out = check_out
 
 details.each do |detail|
-  project = detail["project"]
-  description = detail["description"]
-  worktime = Time.parse(detail["end"]) - Time.parse(detail["start"])
-  worktime = (worktime / 60).to_i
-
-  unless notes.has_key?(project)
-    notes[project] = {}
-    notes[project][description] = worktime
-  else
-    unless notes[project].has_key?(description)
-      notes[project][description] = worktime
-    else
-      notes[project][description] += worktime
-    end
-  end
-
-  total_worktime += worktime
+  detail = report.add_detail(detail)
 end
 
 # So, Let's create report!
-
-puts "#{Time.now.strftime("%Y-%m-%d")} のレポートです。"
+puts "#{report.day.strftime("%Y-%m-%d")} のレポートです。"
+puts ""
 puts "# Summary"
 puts ""
 
 puts "# Details"
 puts "```"
-notes.each do |project, descriptions|
-  project_title = "## #{project}"
+report.projects.each do |project|
   project_items = []
-  project_worktime = 0
-  descriptions.each do |k, v|
-    project_worktime += v
-    project_items << "- #{k}: #{v}分"
+  report.get_detail_by(project).each do |detail|
+    project_items << "- #{detail.description}: #{detail.worktime}分"
   end
-  puts "#{project_title} (計#{project_worktime}分, #{((project_worktime.to_f/total_worktime.to_f) * 100).round}%)"
+  puts "## #{project} (計#{report.project_worktime(project)}分, #{report.project_worktime_percentage(project)}%)"
   puts project_items.join("\n")
   puts ""
 end
@@ -74,6 +56,6 @@ puts ""
 
 puts "# Time"
 puts "```"
-puts "- CheckIn/CheckOut: #{Time.at(check_in).to_datetime.strftime('%H:%M')} - #{Time.at(check_out).to_datetime.strftime('%H:%M')} (#{(check_out - check_in) / 60}分)"
-puts "- Toggl上の集計時間: #{(total_worktime / 60.0).to_f.round(1)}時間 (#{total_worktime}分)"
+puts "- CheckIn/CheckOut: #{Time.at(report.check_in).to_datetime.strftime('%H:%M')} - #{Time.at(report.check_out).to_datetime.strftime('%H:%M')} (#{(report.check_out - report.check_in) / 60}分)"
+puts "- Toggl上の集計時間: #{(report.total_worktime / 60.0).to_f.round(1)}時間 (#{report.total_worktime}分)"
 puts "```"
