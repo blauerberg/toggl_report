@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
 
 class Report
-  attr_accessor :day, :check_in, :check_out, :details
+  attr_reader :day, :details
+  attr_accessor :check_in, :check_out
 
   def initialize(day)
     @day = day
