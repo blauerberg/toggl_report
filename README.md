@@ -28,7 +28,7 @@ $ sed -i -e "s/WORKSPACE_ID/{your workspace id}/" .env.local
 
 2. Create report! :slightly_smiling_face:
 ```
-$ bundle exec ruby toggl_repot.rb
+$ bundle exec ruby toggl_report.rb
 2020-01-16 のレポートです。
 # Summary
 
