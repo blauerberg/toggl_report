@@ -1,4 +1,4 @@
-# toggl_report
+# toggl-report
 
 togglの[Report API V2](https://github.com/toggl/toggl_api_docs/blob/master/reports.md) を使って一日分の作業時間をプロジェクト・タスク毎に集計し、レポートの雛形を作成するrubyのスクリプトです。
 個人での利用を目的に作成したので、実装はとても雑です。
@@ -10,6 +10,8 @@ togglの[Report API V2](https://github.com/toggl/toggl_api_docs/blob/master/repo
 - チェックイン・チェックアウト時刻 (当日のエントリで `start` が一番小さいエントリと `end` が一番大きいエントリから判断)
 
 ## How to use
+
+### Run on the host OS
 
 1. Download and setup credentials.
 ```
@@ -42,6 +44,15 @@ $ bundle exec ruby toggl_report.rb
 # Time
 - CheckIn/CheckOut: 09:32 - 10:55 (83分)
 - Toggl上の集計時間: 1.0時間 (60分)
+```
+
+### Run on the Docker
+
+```
+$ git clone https://github.com/blauerberg/toggl-report.git
+$ cd toggl-report
+$ docker build -t toggl-report .
+$ docker run --rm -e API_TOKEN="YOUR_API_TOKEN" -e WORKSPACE_ID="YOUR_WORKSPACE_ID" toggl-report
 ```
 
 ## TODO
