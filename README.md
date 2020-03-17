@@ -21,13 +21,13 @@ $ bundle install
 
 # Put your credentials into .env.local
 $ cp cp .env .env.local
+
 # Set your api token
 $ sed -i -e "s/API_TOKEN/{your api token}/" .env.local
 
 # Set your workspace id
 # Workspace id is in the last part of the dashboard's URL.
 # (ex. https://toggl.com/app/dashboard/me/123456)
-
 $ sed -i -e "s/WORKSPACE_ID/{your workspace id}/" .env.local
 ```
 
