@@ -19,12 +19,15 @@ $ git clone https://github.com/blauerberg/toggl-report.git
 $ cd toggl-report
 $ bundle install
 
-# put your credentials into .env.local
+# Put your credentials into .env.local
 $ cp cp .env .env.local
-# set your token of DigitalOcean
+# Set your api token
 $ sed -i -e "s/API_TOKEN/{your api token}/" .env.local
 
-# set your ssh key name of DigitalOcean
+# Set your workspace id
+# Workspace id is in the last part of the dashboard's URL.
+# (ex. https://toggl.com/app/dashboard/me/123456)
+
 $ sed -i -e "s/WORKSPACE_ID/{your workspace id}/" .env.local
 ```
 
