@@ -58,6 +58,15 @@ $ docker build -t toggl-report .
 $ docker run --rm -e API_TOKEN="YOUR_API_TOKEN" -e WORKSPACE_ID="YOUR_WORKSPACE_ID" toggl-report
 ```
 
+### レポートの時刻に利用するタイムゾーンを指定する
+
+ビルド時に `timezone` を [tz timezone](https://en.wikipedia.org/wiki/Tz_database) で指定してください。
+指定しない場合は `Asia/Tokyo` が利用されます。
+
+```
+$ docker build --build-arg timezone="Asia/Bangkok" -t toggl-report .
+```
+
 ## TODO
 - 取得するエントリの期間を指定できるようにする
 - レポートの出力をテンプレート化

@@ -2,6 +2,8 @@ FROM ruby:2.6
 
 MAINTAINER Yoshikazu Aoyama <yskz.aoyama@gmail.com>
 
+ARG timezone="Asia/Tokyo"
+ENV TZ=$timezone
 RUN apt-get update -qq && \
     apt-get upgrade -y && \
     rm -rf /var/lib/apt/lists/*
