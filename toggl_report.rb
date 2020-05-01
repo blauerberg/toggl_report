@@ -10,6 +10,7 @@ Dotenv.load(".env.local", ".env")
 api_token = ENV["API_TOKEN"]
 workspace_id = ENV["WORKSPACE_ID"]
 
+me = TogglV8::API.new(api_token).me
 toggl = TogglV8::ReportsV2.new(api_token: api_token)
 toggl.workspace_id = workspace_id
 
@@ -17,6 +18,7 @@ now = Time.now
 details = toggl.details(
   '',
   {
+    user_id: me["id"],
     since: Time.now.strftime("%Y-%m-%d"),
     until: (Time.at(Time.now.to_i + 86400)).strftime("%Y-%m-%d")
   }
