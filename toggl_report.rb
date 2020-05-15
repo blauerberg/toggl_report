@@ -49,7 +49,7 @@ report.projects.each do |project|
   report.get_detail_by(project).each do |detail|
     project_items << "- #{detail.description}: #{detail.worktime}分"
   end
-  puts "## #{project} (計#{report.project_worktime(project)}分, #{report.project_worktime_percentage(project)}%)"
+  puts "## #{project || 'No Project'} (計#{report.project_worktime(project)}分, #{report.project_worktime_percentage(project)}%)"
   puts project_items.join("\n")
   puts ""
 end
