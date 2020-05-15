@@ -1,6 +1,6 @@
 FROM ruby:2.6
 
-MAINTAINER Yoshikazu Aoyama <yskz.aoyama@gmail.com>
+LABEL maintainer="Yoshikazu Aoyama <yskz.aoyama@gmail.com>"
 
 ARG timezone="Asia/Tokyo"
 ENV TZ=$timezone
