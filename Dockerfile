@@ -12,9 +12,9 @@ RUN mkdir -p /toggl_report
 WORKDIR /toggl_report
 ADD Gemfile Gemfile
 ADD Gemfile.lock Gemfile.lock
-ADD report.rb report.rb
-ADD toggl_report.rb toggl_report.rb
 RUN gem install bundler
 RUN bundle config set path vendor
 RUN bundle install
+ADD report.rb report.rb
+ADD toggl_report.rb toggl_report.rb
 CMD bundle exec ruby toggl_report.rb
