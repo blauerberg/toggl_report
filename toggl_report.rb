@@ -24,6 +24,11 @@ details = toggl.details(
   }
 )
 
+if details.empty?
+  STDERR.puts "Entry not found"
+  exit -1
+end
+
 # get checkin/checkout time
 check_out = DateTime.parse(details.first["end"]).to_time.utc.to_i
 check_in = DateTime.parse(details.last["start"]).to_time.utc.to_i
