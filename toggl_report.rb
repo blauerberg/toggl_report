@@ -19,8 +19,8 @@ details = toggl.details(
   '',
   {
     user_ids: me["id"],
-    since: Time.now.strftime("%Y-%m-%d"),
-    until: (Time.at(Time.now.to_i + 86400)).strftime("%Y-%m-%d")
+    since: now.strftime("%Y-%m-%d"),
+    until: (Time.at(now.to_i + 86400)).strftime("%Y-%m-%d")
   }
 )
 
