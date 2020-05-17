@@ -43,20 +43,22 @@ puts "# Summary"
 puts ""
 
 puts "# Details"
+puts ""
 puts "```"
-report.projects.each do |project|
+report.projects.each_with_index do |project, i|
   project_items = []
   report.get_detail_by(project).each do |detail|
     project_items << "- #{detail.description}: #{detail.worktime}分"
   end
-  puts "## #{project} (計#{report.project_worktime(project)}分, #{report.project_worktime_percentage(project)}%)"
+  puts "## #{project || 'No Project'} (計#{report.project_worktime(project)}分, #{report.project_worktime_percentage(project)}%)"
   puts project_items.join("\n")
-  puts ""
+  puts "" if i < report.projects.size - 1
 end
 puts "```"
 puts ""
 
 puts "# Time"
+puts ""
 puts "```"
 puts "- CheckIn/CheckOut: #{Time.at(report.check_in).to_datetime.strftime('%H:%M')} - #{Time.at(report.check_out).to_datetime.strftime('%H:%M')} (#{(report.check_out - report.check_in) / 60}分)"
 puts "- Toggl上の集計時間: #{(report.total_worktime / 60.0).to_f.round(1)}時間 (#{report.total_worktime}分)"
