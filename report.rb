@@ -54,10 +54,10 @@ class ReportDetail
   def initialize(toggl_detail)
     @project = toggl_detail["project"]
     @description = toggl_detail["description"]
-    @worktime = ((Time.parse(toggl_detail["end"]) - Time.parse(toggl_detail["start"])) / 60).to_i
+    @worktime = ((Time.parse(toggl_detail["end"]) - Time.parse(toggl_detail["start"])) / 60.0).ceil
   end
 
   def add_time(start, finish)
-    @worktime += ((Time.parse(finish) - Time.parse(start)) / 60).to_i
+    @worktime += ((Time.parse(finish) - Time.parse(start)) / 60.0).ceil
   end
 end
