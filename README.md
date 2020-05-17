@@ -38,13 +38,15 @@ $ bundle exec ruby toggl_report.rb
 # Summary
 
 # Details
+
 ## misc (計30分, 50%)
 - slack、メールチェック: 30分
 
-# project X (計30分, 50%)
+## project X (計30分, 50%)
 - coding: 30分
 
 # Time
+
 - CheckIn/CheckOut: 09:32 - 10:55 (83分)
 - Toggl上の集計時間: 1.0時間 (60分)
 ```
