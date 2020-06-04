@@ -29,6 +29,11 @@ $ sed -i -e "s/API_TOKEN/{your api token}/" .env.local
 # Workspace id is in the last part of the dashboard's URL.
 # (ex. https://toggl.com/app/dashboard/me/123456)
 $ sed -i -e "s/WORKSPACE_ID/{your workspace id}/" .env.local
+
+# Set your Redmine ID
+# Your Redmine ID is the number found at the end of your Redmine profile URL
+# (ex. https://redmine.example.com/users/123)
+$ sed -i -e "s/REDMINE_ID/{your Redmine id}/" .env.local
 ```
 
 2. Create report! :slightly_smiling_face:
@@ -36,6 +41,7 @@ $ sed -i -e "s/WORKSPACE_ID/{your workspace id}/" .env.local
 $ bundle exec ruby toggl_report.rb
 2020-01-16 のレポートです。
 # Summary
+- アクティビティ: https://redmine.example.com/activity?user_id=123
 
 # Details
 
@@ -57,7 +63,7 @@ $ bundle exec ruby toggl_report.rb
 $ git clone https://github.com/blauerberg/toggl-report.git
 $ cd toggl-report
 $ docker build -t toggl-report .
-$ docker run --rm -e API_TOKEN="YOUR_API_TOKEN" -e WORKSPACE_ID="YOUR_WORKSPACE_ID" toggl-report
+$ docker run --rm -e API_TOKEN="YOUR_API_TOKEN" -e WORKSPACE_ID="YOUR_WORKSPACE_ID" -e REDMINE_ID="YOUR_REDMINE_ID" toggl-report
 ```
 
 ### レポートの時刻に利用するタイムゾーンを指定する

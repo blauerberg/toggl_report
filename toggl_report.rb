@@ -9,6 +9,7 @@ Dotenv.load(".env.local", ".env")
 
 api_token = ENV["API_TOKEN"]
 workspace_id = ENV["WORKSPACE_ID"]
+redmine_id = ENV["REDMINE_ID"]
 
 me = TogglV8::API.new(api_token).me
 toggl = TogglV8::ReportsV2.new(api_token: api_token)
@@ -44,11 +45,11 @@ end
 # So, Let's create report!
 puts "#{report.day.strftime("%Y-%m-%d")} のレポートです。"
 puts ""
-puts "# Summary"
+puts "*Summary*"
+puts "- アクティビティ: https://redmine.an-nai.jp/activity?user_id=#{redmine_id}"
 puts ""
 
-puts "# Details"
-puts ""
+puts "*Details*"
 puts "```"
 report.projects.each_with_index do |project, i|
   project_items = []
@@ -62,8 +63,7 @@ end
 puts "```"
 puts ""
 
-puts "# Time"
-puts ""
+puts "*Time*"
 puts "```"
 puts "- CheckIn/CheckOut: #{Time.at(report.check_in).to_datetime.strftime('%H:%M')} - #{Time.at(report.check_out).to_datetime.strftime('%H:%M')} (#{((report.check_out - report.check_in) / 60.0).ceil}分)"
 puts "- Toggl上の集計時間: #{(report.total_worktime / 60.0).ceil(1)}時間 (#{report.total_worktime}分)"
