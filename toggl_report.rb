@@ -3,12 +3,18 @@
 require "time"
 require "dotenv"
 require "togglv8"
+require 'optparse'
 require File.dirname(__FILE__) + "/report"
 
 Dotenv.load(".env.local", ".env")
 
 api_token = ENV["API_TOKEN"]
 workspace_id = ENV["WORKSPACE_ID"]
+options = {}
+opt_parser = OptionParser.new
+
+opt_parser.new.on("-b", "--apply-standatd-break-time", "Apply standard break time in Japan") {|v| options[:forcebreak] = true }
+opt_parser.parse!(ARGV)
 
 me = TogglV8::API.new(api_token).me
 toggl = TogglV8::ReportsV2.new(api_token: api_token)
@@ -33,7 +39,7 @@ end
 check_out = DateTime.parse(details.first["end"]).to_time.utc.to_i
 check_in = DateTime.parse(details.last["start"]).to_time.utc.to_i
 
-report = Report.new(now)
+report = Report.new(now, options)
 report.check_in = check_in
 report.check_out = check_out
 
