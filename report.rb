@@ -12,6 +12,10 @@ class Report
 
   def total_worktime
     total = @details.sum{ |detail| detail.worktime }
+  end
+
+  def total_check_time
+    total = ((check_out - check_in) / 60.0).ceil
     return total unless @options[:forcebreak]
 
     if total >= 480
