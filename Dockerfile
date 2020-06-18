@@ -17,4 +17,4 @@ RUN bundle config set path vendor
 RUN bundle install
 ADD report.rb report.rb
 ADD toggl_report.rb toggl_report.rb
-CMD bundle exec ruby toggl_report.rb
+ENTRYPOINT ["bundle", "exec", "ruby", "toggl_report.rb"]
