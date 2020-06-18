@@ -4,13 +4,27 @@ class Report
   attr_reader :day, :details
   attr_accessor :check_in, :check_out
 
-  def initialize(day)
+  def initialize(day, options)
     @day = day
+    @options = options
     @details = []
   end
 
   def total_worktime
-    @details.sum{ |detail| detail.worktime }
+    total = @details.sum{ |detail| detail.worktime }
+  end
+
+  def total_check_time
+    total = ((check_out - check_in) / 60.0).ceil
+    return total unless @options[:forcebreak]
+
+    if total >= 480
+      total - 60
+    elsif total >= 360
+      total - 45
+    else
+      total
+    end
   end
 
   def add_detail(toggl_detail)
